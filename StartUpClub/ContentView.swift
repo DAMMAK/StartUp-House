@@ -8,14 +8,33 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showRoomDetails: Bool = false
+    @StateObject var homeViewModel = HomeViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
+        ZStack{
+            Color.theme.backgroundColor.ignoresSafeArea()
+            VStack {
+                VStack {
+                    HomeHeader()
+                    CategorySlider()
+                    UpcomingTalk()
+                    HappeningNowView(lastetsTalk: homeViewModel.talks, showRoom: $showRoomDetails)
+                }
+    
+                BottomNavBarView()
+            }
             .padding()
+        }
+        
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .preferredColorScheme(.dark)
     }
 }
+
